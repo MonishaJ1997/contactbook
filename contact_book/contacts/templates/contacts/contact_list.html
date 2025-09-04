@@ -1,0 +1,18 @@
+
+<h1>My Contacts</h1>
+<a href="{% url 'contacts:add_contact' %}">Add Contact</a> |
+<a href="{% url 'contacts:feedback' %}">Send Feedback</a>
+
+<ul>
+    {% for contact in contacts %}
+        <li>
+            {{ contact.name }} - {{ contact.email }} - {{ contact.phone }}
+            <form action="{% url 'contacts:delete_contact' contact.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">❌ Delete</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No contacts found.</li>
+    {% endfor %}
+</ul>
